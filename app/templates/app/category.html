@@ -1,0 +1,171 @@
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    .listing-section {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .product {
+        display: flex;
+        flex-direction: column;
+        width: 100%; /* Default to 100% width */
+        border-radius: 2%;
+        overflow: hidden;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .product:hover {
+        box-shadow: 1.5px 1.5px 2.5px 3px rgba(0, 0, 0, 0.4);
+    }
+
+    .product a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .product a:hover {
+        text-decoration: none;
+        color: #7F6951;
+    }
+
+
+    .image-box {
+        width: 100%;
+        overflow: hidden;
+        border-radius: 2% 2% 0 0;
+    }
+
+    .images {
+        height: 200px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 2% 2% 0 0;
+        transition: transform 1s ease;
+    }
+
+    .images:hover {
+        transform: scale(1.1);
+    }
+
+    .text-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        border: 0.01em solid #dddbdb;
+        border-radius: 0 0 2% 2%;
+        text-decoration: none;
+    }
+
+    h2, h3 {
+        font-family: Futura, Trebuchet MS, Arial, sans-serif;    
+        font-weight: 400;
+        font-size: 1em;
+        text-transform: uppercase;
+        margin: 0.5em 0;
+        text-align: center;
+    }
+
+    .price {
+        margin: 0.3em 0;
+        color: grey;
+    }
+
+    .description, label, input, button {
+        display: block;
+        width: 100%;
+        text-align: center;
+        font-family: Futura, Trebuchet MS, Arial, sans-serif;
+        font-size: 0.9em;
+        margin: 0.5em 0;
+        text-decoration: none;
+    }
+
+    input {
+        width: 30%;
+        padding: 0.2em;
+        text-align: center;
+    }
+
+
+    button {
+        padding: 0.5em;
+        background-color: #dfd;
+        border: none;
+        border-radius: 2%;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #cfc;
+    }
+
+    button:active {
+        background-color: #fdf;
+    }
+
+    /* Responsive Layout Adjustments */
+    @media (min-width: 576px) {
+        .product {
+            width: 48%; /* Two items per row on small screens */
+        }
+    }
+
+    @media (min-width: 768px) {
+        .product {
+            width: 32%; /* Three items per row on medium screens */
+        }
+    }
+
+    @media (min-width: 992px) {
+        .product {
+            width: 29%; /* Closer to three items per row on large screens */
+        }
+    }
+</style>
+
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Category{% endblock title %}
+
+{% block main-content %}
+<div class="container my-5" style="font-family: Futura, Trebuchet MS, Arial, sans-serif;">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="list-group">
+                {% for val in title %}
+                    <a href="{% url 'category-title' val.title %}" class="list-group-item list-group-item-action" aria-current="true" style="text-decoration: none;">{{ val.title }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="listing-section">
+                {% for prod in product %}
+                    <div class="product">
+                        <a href="{% url 'product-detail' prod.id %}">
+                            <div class="image-box">
+                                <!-- Image from the Django backend -->
+                                <div class="images" style="background-image: url('{{ prod.product_image.url }}');"></div>
+                            </div>
+                            <div class="text-box">
+                                <h2 class="item">{{ prod.title }}</h2>
+                                <h3 class="price">Rs. {{ prod.discounted_price }}/-</h3>
+                                <p class="description">{{ prod.description|truncatewords:10 }}</p>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static 'app/css/owl.carousel.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'app/css/all.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script> -->
+    <title> Paul AN Co. | {% block title %}{% endblock title %}</title>
+    <style>
+      figure {
+  display: grid;
+  border-radius: 1rem;
+  overflow: hidden;
+  cursor: pointer;
+}
+figure > * {
+  grid-area: 1/1;
+  transition: .4s;
+}
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#25d366;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+  font-size:30px;
+	box-shadow: 2px 2px 3px #999;
+  z-index:100;
+}
+
+.my-float{
+	margin-top:16px;
+}
+
+/* .nav-item li:hover {
+  color: #111;
+  transform: scale(1.2);
+  text-shadow: none;
+} */
+
+figure figcaption {
+  display: grid;
+  align-items: end;
+  font-family: sans-serif;
+  font-size: 2.3rem;
+  font-weight: bold;
+  color: #0000;
+  padding: .75rem;
+  background: var(--c,#0009);
+  clip-path: inset(0 var(--_i,100%) 0 0);
+  -webkit-mask:
+    linear-gradient(#000 0 0),
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  -webkit-mask-clip: text, padding-box;
+  margin: -1px;
+}
+figure:hover figcaption{
+  --_i: 0%;
+}
+figure:hover img {
+  transform: scale(1.2);
+}
+.navbar-nav .nav-link {
+    color: white !important; /* Ensure the text color is black */
+  }
+
+  .navbar-nav .nav-link:hover {
+    color: #7F6951 !important; /* Change color on hover, if needed */
+  }
+@supports not (-webkit-mask-clip: text) {
+  figure figcaption {
+   -webkit-mask: none;
+   color: #fff;
+  }
+}
+
+.footer-col a img {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.footer-col a:hover img {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 10px #7F6951); /* Adds a shadow of a specific color */
+}
+
+    </style>
+</head>
+<body style="background-color: #FDF6EB; overflow-x: hidden;">
+    
+    <nav class="navbar navbar-expand-lg" style="background-color: rgba(0, 0, 0, 0.85);">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img src="{% static "app/images/LogoWeb.png" %}"  width="70" height="50" />
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              
+              <li class="nav-item">
+                <a class="nav-link active text-white" aria-current="page" href="/" style="font-family: Futura,Trebuchet MS, Arial, sans-serif; color: white;">Home</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-family: Futura,Trebuchet MS, Arial, sans-serif;">
+                  Products
+                </a>
+                <ul class="dropdown-menu" style="background-color: rgb(232, 232, 219); font-family: Futura,Trebuchet MS, Arial, sans-serif;">
+                    <li><a class="dropdown-item" href="{% url 'category' 'ML' %}">Milk</a></li>
+                    <li><a class="dropdown-item" href="{% url 'category' 'CR' %}">Curd</a></li>
+                    <li><a class="dropdown-item" href="{% url 'category' 'MS' %}">Milkshake</a></li>
+                    <li><a class="dropdown-item" href="{% url 'category' 'LS' %}">Lassi</a></li>
+                    <li><a class="dropdown-item" href="{% url 'category' 'GH' %}">Ghee</a></li>
+                    <li><a class="dropdown-item" href="{% url 'category' 'PN' %}">Paneer</a></li>
+                    <li><a class="dropdown-item" href="{% url 'category' 'CZ' %}">Cheese</a></li>
+                    <li><a class="dropdown-item" href="{% url 'category' 'IC' %}">Ice-creams</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'about' %}" style="font-family: Futura,Trebuchet MS, Arial, sans-serif;">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'contact' %}" style="font-family: Futura,Trebuchet MS, Arial, sans-serif;">Contact Us</a>
+              </li>
+            </ul>
+            <form class="d-flex" role="search" action="/search">
+              <input class="form-control me-2" type="search" placeholder="Search" name="search"  aria-label="Search" style="font-family: Futura,Trebuchet MS, Arial, sans-serif;">
+              <button class="btn btn-outline-dark" type="submit" style="font-family: Futura,Trebuchet MS, Arial, sans-serif; color: white; background-color: #7F6951;">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+      <a href="https://api.whatsapp.com/send/?phone=%2B919108943070&text=Hello+There%21&type=phone_number&app_absent=0" class="float" target="_blank">
+        <img src="/static/app/images/whatsapp-icons.png" alt="" style="height: 50px; ">
+        </a>
+      {% block banner-slider %}{% endblock banner-slider %}
+      {% block information %}{% endblock information %}
+      {% block main-content %}{% endblock main-content %}
+      {% block payment-gateway %} {% endblock payment-gateway %}
+      
+      <footer class="container-fluid text-center p-2 mt-5" style="background-color: black; opacity: 90%; font-family: Futura,Trebuchet MS, Arial, sans-serif; color: white;">
+        <!-- Copyright : 2024 || Developed by : Prateek Anand -->
+        <!-- <p style="font-weight: 500;"></p> -->
+          <br>
+          Social Media Handles
+          <br>
+          <span class="footer-row">
+            <span class="footer-col">
+              <a href="https://api.whatsapp.com/send/?phone=%2B919108943070&text=Hello+There%21&type=phone_number&app_absent=0"><img src="/static/app/images/whatsapp-icons.png" alt="" style="width: 40px; height: 40px;"></a>
+            </span>
+            <span class="footer-col">
+              <a href=""><img src="/static/app/images/instagram-icons.png" style="width: 40px; height: 40px;"  alt=""></a>
+            </span>
+            <span class="footer-col">
+              <a href="mailto:paulancorp@gmail.com"><img src="/static/app/images/email-1.png" style="height: 50px; width: 50px;"  alt=""></a>
+            </span>
+          
+          </span>
+        <p >Copyright Paul AN Co.</p>
+      </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+    <script src="{% static 'app/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'app/js/all.min.js' %}"></script>
+    <!-- <script src="{% static 'app/js/myscript.js' %}"></script> -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1500, // Duration of animation in milliseconds
+            once: true      // Whether animation should happen only once (true) or every time (false)
+        });
+    </script>
+
+</body>
+</html>
