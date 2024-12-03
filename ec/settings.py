@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-hguv9*+03^vr_y5ac(6jwy04lbv#7d0n#!nqcyd68y1cfon)7g"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['*']
@@ -120,6 +120,9 @@ MEDIA_ROOT = BASE_DIR/'media'
 STATIC_DIRS = [os.path.join(BASE_DIR,'app/static')]
 
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 # LOGIN_REDIRECT_URL = '/profile/'
 # ROOT_URLCONF = '/home'
 
